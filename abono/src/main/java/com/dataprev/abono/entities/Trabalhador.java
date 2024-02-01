@@ -2,6 +2,7 @@ package com.dataprev.abono.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -9,7 +10,6 @@ import java.util.Date;
 public class Trabalhador {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="trabalhador_id")
     private Long cpf;
     @Column(name="nome")
@@ -20,17 +20,13 @@ public class Trabalhador {
     private Date nascimento;
     @Column(name="pis_pasep")
     private Long pisPasep;
-    @OneToOne
-    @JoinColumn(name="pagamento_id")
-    private Pagamento pagamento;
 
-    public Trabalhador(Long cpf, String nome, String nomeMae, Date nascimento, Long pisPasep, Pagamento pagamento) {
+    public Trabalhador(Long cpf, String nome, String nomeMae, Date nascimento, Long pisPasep) {
         this.cpf = cpf;
         this.nome = nome;
         this.nomeMae = nomeMae;
         this.nascimento = nascimento;
         this.pisPasep = pisPasep;
-        this.pagamento = pagamento;
     }
 
     public Trabalhador() {
@@ -74,13 +70,5 @@ public class Trabalhador {
 
     public void setPisPasep(Long pisPasep) {
         this.pisPasep = pisPasep;
-    }
-
-    public Pagamento getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(Pagamento pagamento) {
-        this.pagamento = pagamento;
     }
 }

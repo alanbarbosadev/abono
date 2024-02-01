@@ -10,7 +10,7 @@ public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="pagamento_id")
-    private Long id;
+    private Integer id;
     @Column(name="codigo_pagamento")
     private Long codigoPagamento;
     @Column(name="exercicio_financeiro")
@@ -30,13 +30,13 @@ public class Pagamento {
     @Column(name="numero_sentenca")
     private String numeroSentenca = "0000000-00.0000.000.0000";
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="banco_id")
+    @JoinColumn(name="fk_banco_id")
     private Banco banco;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="trabalhador_id")
+    @JoinColumn(name="fk_trabalhador_id")
     private Trabalhador trabalhador;
 
-    public Pagamento(Long id, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
+    public Pagamento(Integer id, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
         this.id = id;
         this.codigoPagamento = codigoPagamento;
         this.exercicioFinanceiro = exercicioFinanceiro;
@@ -51,14 +51,16 @@ public class Pagamento {
         this.trabalhador = trabalhador;
     }
 
+
+
     public Pagamento() {
     }
 
-    public Long getId() {
+    public Integer getPagamentoId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setPagamentoId(Integer id) {
         this.id = id;
     }
 
