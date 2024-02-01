@@ -9,10 +9,16 @@ import java.util.Date;
 public class Trabalhador {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="trabalhador_id")
     private Long cpf;
+    @Column(name="nome")
     private String nome;
+    @Column(name="nome_mae")
     private String nomeMae;
+    @Column(name="data_nascimento")
     private Date nascimento;
+    @Column(name="pis_pasep")
     private Long pisPasep;
     @OneToOne
     @JoinColumn(name="pagamento_id")

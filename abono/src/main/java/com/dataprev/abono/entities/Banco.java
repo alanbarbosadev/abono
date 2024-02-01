@@ -7,12 +7,19 @@ import jakarta.persistence.*;
 public class Banco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="banco_id")
     private Long bancoId;
+    @Column(name="nome")
     private String nome;
+    @Column(name="agencia")
     private Long agencia;
+    @Column(name="digitor_verificador")
     private Integer digitorVerificador;
+    @Column(name="tipo_conta")
     private String tipoConta;
+    @Column(name="conta")
     private Long conta;
+    @Column(name="indicador_pagamento")
     private Integer indicadorPagamento;
     @OneToOne
     @JoinColumn(name="pagamento_id")

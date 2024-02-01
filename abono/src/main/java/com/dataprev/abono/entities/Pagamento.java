@@ -5,26 +5,38 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="TB_PAGAMENTO")
+@Table(name="tb_pagamento")
 public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name="pagamento_id")
+    private Long id;
+    @Column(name="codigo_pagamento")
     private Long codigoPagamento;
+    @Column(name="exercicio_financeiro")
     private String exercicioFinanceiro = "01012022";
+    @Column(name="ano_base")
     private String anoBase = "2022";
+    @Column(name="numero_parcela")
     private String numeroParcela = "01";
+    @Column(name="valor_pagamento")
     private BigDecimal valorPagamento;
+    @Column(name="meses_trabalhados")
     private Integer mesesTrabalhados;
+    @Column(name="data_inicial_pagamento")
     private String dataInicialPagamento = "05022024";
+    @Column(name="data_final_pagamento")
     private String dataFinalPagamento = "31122024";
+    @Column(name="numero_sentenca")
     private String numeroSentenca = "0000000-00.0000.000.0000";
-    @OneToOne(mappedBy = "pagamento", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="banco_id")
     private Banco banco;
-    @OneToOne(mappedBy = "pagamento", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="trabalhador_id")
     private Trabalhador trabalhador;
 
-    public Pagamento(Integer id, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
+    public Pagamento(Long id, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
         this.id = id;
         this.codigoPagamento = codigoPagamento;
         this.exercicioFinanceiro = exercicioFinanceiro;
@@ -42,11 +54,11 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
