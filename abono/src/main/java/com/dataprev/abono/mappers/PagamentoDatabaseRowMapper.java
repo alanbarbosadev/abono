@@ -18,7 +18,7 @@ public class PagamentoDatabaseRowMapper implements RowMapper<Pagamento> {
         var trabalhador = new Trabalhador();
 
 
-        pagamento.setPagamentoId(rs.getInt("pagamento_id"));
+        pagamento.setId(rs.getInt("pagamento_id"));
         pagamento.setCodigoPagamento(rs.getLong("codigo_pagamento"));
         pagamento.setExercicioFinanceiro(rs.getString("exercicio_financeiro"));
         pagamento.setAnoBase(rs.getString("ano_base"));

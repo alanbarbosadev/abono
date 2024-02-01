@@ -90,7 +90,11 @@ public class SpringBatchConfig {
             {
                 setFieldExtractor(new BeanWrapperFieldExtractor<Pagamento>() {
                     {
-                        setNames(new String[]{"pagamento_id", "codigo_pagamento", "exercicio_financeiro", "ano_base", "numero_parcela", "valor_pagamento", "meses_trabalhados", "data_inicial_pagamento", "data_final_pagamento", "numero_sentence","banco_id", "banco", "agencia", "digito_verificador", "tipo_conta", "conta", "indicador_pagamento", "trabalhador_id", "nome", "nome_mae", "data_nascimento", "pis_pasep"});
+                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
+                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco.bancoId", "banco.banco",
+                                "banco.agencia", "banco.digitoVerificador", "banco.tipoConta", "banco.conta", "banco.indicadorPagamento",
+                                "trabalhador.cpf", "trabalhador.nome", "trabalhador.nomeMae",
+                                "trabalhador.nascimento", "trabalhador.pisPasep"});
                     }
                 });
             }

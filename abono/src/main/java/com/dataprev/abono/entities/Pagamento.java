@@ -56,11 +56,11 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Integer getPagamentoId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setPagamentoId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
