@@ -1,5 +1,6 @@
 package com.dataprev.abono.config;
 
+import com.dataprev.abono.dtos.PagamentoReportDto;
 import com.dataprev.abono.entities.Pagamento;
 import com.dataprev.abono.mappers.PagamentoDatabaseRowMapper;
 import com.dataprev.abono.processors.PagamentoProcessor;
@@ -83,18 +84,24 @@ public class SpringBatchConfig {
     }
 
     @Bean
-    public ItemWriter<Pagamento> pagamentoWriter() {
-        FlatFileItemWriter<Pagamento> writer = new FlatFileItemWriter<>();
-        writer.setResource(new FileSystemResource("src/main/resources/pagamento.csv"));
-        writer.setLineAggregator(new DelimitedLineAggregator<Pagamento>() {
+    public ItemWriter<PagamentoReportDto> pagamentoWriter() {
+        FlatFileItemWriter<PagamentoReportDto> writer = new FlatFileItemWriter<>();
+        writer.setResource(new FileSystemResource("src/main/resources/pagamento.txt"));
+        writer.setLineAggregator(new DelimitedLineAggregator<PagamentoReportDto>() {
             {
-                setFieldExtractor(new BeanWrapperFieldExtractor<Pagamento>() {
+                setDelimiter("");
+                setFieldExtractor(new BeanWrapperFieldExtractor<PagamentoReportDto>() {
                     {
-                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
-                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco.bancoId", "banco.banco",
-                                "banco.agencia", "banco.digitoVerificador", "banco.tipoConta", "banco.conta", "banco.indicadorPagamento",
-                                "trabalhador.cpf", "trabalhador.nome", "trabalhador.nomeMae",
-                                "trabalhador.nascimento", "trabalhador.pisPasep"});
+//                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
+//                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco.bancoId", "banco.banco",
+//                                "banco.agencia", "banco.digitoVerificador", "banco.tipoConta", "banco.conta", "banco.indicadorPagamento",
+//                                "trabalhador.cpf", "trabalhador.nome", "trabalhador.nomeMae",
+//                                "trabalhador.nascimento", "trabalhador.pisPasep"});
+
+                        setNames(new String[]{"identificacaoRegistro", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
+                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca", "banco",
+                                "agencia", "digitoVerificador", "tipoConta", "conta", "indicadorPagamento",
+                                "cpf", "nome", "nomeMae", "nascimento", "pisPasep","zeros"});
                     }
                 });
             }
@@ -108,7 +115,6 @@ public class SpringBatchConfig {
         return new StepBuilder("jsonImport", jobRepository).
                 <Pagamento, Pagamento>chunk(10, platformTransactionManager)
                 .reader(reader())
-                .processor(processor())
                 .writer(writer())
                 .build();
     }
@@ -116,7 +122,7 @@ public class SpringBatchConfig {
     @Bean
     public Step exportStep() {
         return new StepBuilder("csvExport", jobRepository)
-                .<Pagamento, Pagamento>chunk(10, platformTransactionManager)
+                .<Pagamento, PagamentoReportDto>chunk(10, platformTransactionManager)
                 .reader(pagamentoReader())
                 .processor(processor())
                 .writer(pagamentoWriter())
