@@ -2,21 +2,49 @@ package com.dataprev.abono.processors;
 
 import com.dataprev.abono.dtos.PagamentoReportDto;
 import com.dataprev.abono.entities.Pagamento;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.annotation.AfterStep;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoReportDto> {
+
+    private int totalCount;
+    private BigDecimal totalValor;
+    private StepExecution stepExecution;
+
+    @BeforeStep
+    public void beforeStep(StepExecution stepExecution) {
+        this.stepExecution = stepExecution;
+        this.totalCount = 0;
+        this.totalValor = BigDecimal.ZERO;
+    }
     @Override
     public PagamentoReportDto process(Pagamento pagamento) throws Exception {
+        totalValor = totalValor.add(pagamento.getValorPagamento());
+
+        totalCount++;
+
         return mapPagamentoToPagamentoReportDto(pagamento);
+    }
+
+    @AfterStep
+    public void afterStep() {
+        // Após o processamento de todos os itens, atualize o ExecutionContext do Step
+        stepExecution.getExecutionContext().putInt("stepTotalItemCount", totalCount);
+        stepExecution.getExecutionContext().putDouble("stepTotalValor", totalValor.doubleValue());
     }
 
     private PagamentoReportDto mapPagamentoToPagamentoReportDto(Pagamento pagamento) {
 
         var pagamentoReportDto = new PagamentoReportDto();
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+
+
 
          pagamentoReportDto.setIdentificacaoRegistro("21");
          pagamentoReportDto.setCodigoPagamento(formatCodigoPagamento(pagamento.getCodigoPagamento()));

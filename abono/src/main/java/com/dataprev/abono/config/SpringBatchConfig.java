@@ -8,6 +8,7 @@ import com.dataprev.abono.repositories.PagamentoRepository;
 import com.dataprev.abono.writers.ReportWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -31,10 +32,12 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SpringBatchConfig {
-    private PagamentoRepository pagamentoRepository;
-    private JobRepository jobRepository;
-    private PlatformTransactionManager platformTransactionManager;
-    private DataSource dataSource;
+
+    private final PagamentoRepository pagamentoRepository;
+
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager platformTransactionManager;
+    private final DataSource dataSource;
 
     @Autowired
     public SpringBatchConfig(PagamentoRepository pagamentoRepository, JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, DataSource dataSource) {
@@ -85,12 +88,6 @@ public class SpringBatchConfig {
                 setDelimiter(",");
                 setFieldExtractor(new BeanWrapperFieldExtractor<PagamentoReportDto>() {
                     {
-//                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
-//                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco.bancoId", "banco.banco",
-//                                "banco.agencia", "banco.digitoVerificador", "banco.tipoConta", "banco.conta", "banco.indicadorPagamento",
-//                                "trabalhador.cpf", "trabalhador.nome", "trabalhador.nomeMae",
-//                                "trabalhador.nascimento", "trabalhador.pisPasep"});
-
                         setNames(new String[]{"identificacaoRegistro", "codigoPagamento", "exercicioFinanceiro", "anoBase", "pisPasep", "nome",  "nascimento",
                                 "cpf", "nomeMae", "numeroParcela", "valorPagamento","mesesTrabalhados","dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco",
                                 "agencia", "digitoVerificador", "tipoConta", "conta", "indicadorPagamento", "zeros"});
@@ -98,9 +95,8 @@ public class SpringBatchConfig {
                 });
             }
         });
-        //writer.setHeaderCallback();
 
-        //writer.setFooterCallback(( x -> x.write("Contagem: " + writer.getCount() + "   Valor total: " + writer.getTotalValue())));
+        writer.setFooterCallback(( x -> x.write("Contagem: " + writer.getCount() + "   Valor total: " + writer.getTotalValue())));
         writer.setShouldDeleteIfExists(true);
         return writer;
     }
