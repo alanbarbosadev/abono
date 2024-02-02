@@ -5,6 +5,7 @@ import com.dataprev.abono.entities.Pagamento;
 import com.dataprev.abono.mappers.PagamentoDatabaseRowMapper;
 import com.dataprev.abono.processors.PagamentoProcessor;
 import com.dataprev.abono.repositories.PagamentoRepository;
+import com.dataprev.abono.writers.ReportWriter;
 import jakarta.annotation.Resource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -85,7 +86,7 @@ public class SpringBatchConfig {
 
     @Bean
     public ItemWriter<PagamentoReportDto> pagamentoWriter() {
-        FlatFileItemWriter<PagamentoReportDto> writer = new FlatFileItemWriter<>();
+        ReportWriter<PagamentoReportDto> writer = new ReportWriter<>();
         writer.setResource(new FileSystemResource("src/main/resources/pagamento.txt"));
         writer.setLineAggregator(new DelimitedLineAggregator<PagamentoReportDto>() {
             {
@@ -106,7 +107,12 @@ public class SpringBatchConfig {
                 });
             }
         });
+<<<<<<< HEAD
         //writer.setHeaderCallback();
+=======
+
+        writer.setFooterCallback(( writer1 -> writer1.write("Contagem: " + writer.getCount() + "   Valor total: " + writer.getTotalValue())));
+>>>>>>> 3c0db0eec98fb39131fda357c697defb3bdb163c
         writer.setShouldDeleteIfExists(true);
         return writer;
     }
