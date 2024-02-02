@@ -8,22 +8,22 @@ public class Banco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="banco_id")
-    private Long bancoId;
+    private Integer bancoId;
     @Column(name="banco")
     private String banco;
     @Column(name="agencia")
-    private Long agencia;
+    private String agencia;
     @Column(name="digito_verificador")
-    private Integer digitoVerificador;
+    private String digitoVerificador;
     @Column(name="tipo_conta")
     private String tipoConta;
     @Column(name="conta")
-    private Long conta;
+    private String conta;
     @Column(name="indicador_pagamento")
-    private Integer indicadorPagamento;
+    private String indicadorPagamento;
 
-    public Banco(Long id, String banco, Long agencia, Integer digitoVerificador, String tipoConta, Long conta, Integer indicadorPagamento) {
-        this.bancoId = id;
+    public Banco(Integer bancoId, String banco, String agencia, String digitoVerificador, String tipoConta, String conta, String indicadorPagamento) {
+        this.bancoId = bancoId;
         this.banco = banco;
         this.agencia = agencia;
         this.digitoVerificador = digitoVerificador;
@@ -35,12 +35,12 @@ public class Banco {
     public Banco() {
     }
 
-    public Long getBancoId() {
+    public Integer getBancoId() {
         return bancoId;
     }
 
-    public void setBancoId(Long id) {
-        this.bancoId = id;
+    public void setBancoId(Integer bancoId) {
+        this.bancoId = bancoId;
     }
 
     public String getBanco() {
@@ -51,19 +51,19 @@ public class Banco {
         this.banco = banco;
     }
 
-    public Long getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(Long agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 
-    public Integer getDigitoVerificador() {
+    public String getDigitoVerificador() {
         return digitoVerificador;
     }
 
-    public void setDigitorVerificador(Integer digitoVerificador) {
+    public void setDigitoVerificador(String digitoVerificador) {
         this.digitoVerificador = digitoVerificador;
     }
 
@@ -75,19 +75,19 @@ public class Banco {
         this.tipoConta = tipoConta;
     }
 
-    public Long getConta() {
+    public String getConta() {
         return conta;
     }
 
-    public void setConta(Long conta) {
+    public void setConta(String conta) {
         this.conta = conta;
     }
 
-    public Integer getIndicadorPagamento() {
+    public String getIndicadorPagamento() {
         return indicadorPagamento;
     }
 
-    public void setIndicadorPagamento(Integer indicadorPagamento) {
+    public void setIndicadorPagamento(String indicadorPagamento) {
         this.indicadorPagamento = indicadorPagamento;
     }
 }

@@ -89,7 +89,7 @@ public class SpringBatchConfig {
         writer.setResource(new FileSystemResource("src/main/resources/pagamento.txt"));
         writer.setLineAggregator(new DelimitedLineAggregator<PagamentoReportDto>() {
             {
-                setDelimiter("");
+                setDelimiter(" ");
                 setFieldExtractor(new BeanWrapperFieldExtractor<PagamentoReportDto>() {
                     {
 //                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
@@ -106,6 +106,7 @@ public class SpringBatchConfig {
                 });
             }
         });
+        //writer.setHeaderCallback();
         writer.setShouldDeleteIfExists(true);
         return writer;
     }

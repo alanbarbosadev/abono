@@ -4,29 +4,32 @@ import java.math.BigDecimal;
 
 public class PagamentoReportDto {
     private String identificacaoRegistro;
-    private Long codigoPagamento;
+    //retornando 11
+    private String codigoPagamento;
     private String exercicioFinanceiro = "01012022";
     private String anoBase = "2022";
     private String numeroParcela = "01";
-    private BigDecimal valorPagamento;
-    private Integer mesesTrabalhados;
+    //verificar
+    private String valorPagamento;
+    //verificar
+    private String mesesTrabalhados;
     private String dataInicialPagamento = "05022024";
     private String dataFinalPagamento = "31122024";
     private String numeroSentenca = "0000000-00.0000.000.0000";
     private String banco;
-    private Long agencia;
-    private Integer digitoVerificador;
+    private String agencia;
+    private String digitoVerificador;
     private String tipoConta;
-    private Long conta;
-    private Integer indicadorPagamento;
-    private Long cpf;
+    private String conta;
+    private String indicadorPagamento;
+    private String cpf;
     private String nome;
     private String nomeMae;
     private String nascimento;
-    private Long pisPasep;
+    private String pisPasep;
     private String zeros;
 
-    public PagamentoReportDto(String identificacaoRegistro, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, String banco, Long agencia, Integer digitoVerificador, String tipoConta, Long conta, Integer indicadorPagamento, Long cpf, String nome, String nomeMae, String nascimento, Long pisPasep, String zeros) {
+    public PagamentoReportDto(String identificacaoRegistro, String codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, String valorPagamento, String mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, String banco, String agencia, String digitoVerificador, String tipoConta, String conta, String indicadorPagamento, String cpf, String nome, String nomeMae, String nascimento, String pisPasep, String zeros) {
         this.identificacaoRegistro = identificacaoRegistro;
         this.codigoPagamento = codigoPagamento;
         this.exercicioFinanceiro = exercicioFinanceiro;
@@ -51,7 +54,8 @@ public class PagamentoReportDto {
         this.zeros = zeros;
     }
 
-    public PagamentoReportDto() {
+    public PagamentoReportDto(){
+
     }
 
     public String getIdentificacaoRegistro() {
@@ -62,11 +66,11 @@ public class PagamentoReportDto {
         this.identificacaoRegistro = identificacaoRegistro;
     }
 
-    public Long getCodigoPagamento() {
+    public String getCodigoPagamento() {
         return codigoPagamento;
     }
 
-    public void setCodigoPagamento(Long codigoPagamento) {
+    public void setCodigoPagamento(String codigoPagamento) {
         this.codigoPagamento = codigoPagamento;
     }
 
@@ -94,19 +98,19 @@ public class PagamentoReportDto {
         this.numeroParcela = numeroParcela;
     }
 
-    public BigDecimal getValorPagamento() {
+    public String getValorPagamento() {
         return valorPagamento;
     }
 
-    public void setValorPagamento(BigDecimal valorPagamento) {
+    public void setValorPagamento(String valorPagamento) {
         this.valorPagamento = valorPagamento;
     }
 
-    public Integer getMesesTrabalhados() {
+    public String getMesesTrabalhados() {
         return mesesTrabalhados;
     }
 
-    public void setMesesTrabalhados(Integer mesesTrabalhados) {
+    public void setMesesTrabalhados(String mesesTrabalhados) {
         this.mesesTrabalhados = mesesTrabalhados;
     }
 
@@ -142,19 +146,19 @@ public class PagamentoReportDto {
         this.banco = banco;
     }
 
-    public Long getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(Long agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 
-    public Integer getDigitoVerificador() {
+    public String getDigitoVerificador() {
         return digitoVerificador;
     }
 
-    public void setDigitoVerificador(Integer digitoVerificador) {
+    public void setDigitoVerificador(String digitoVerificador) {
         this.digitoVerificador = digitoVerificador;
     }
 
@@ -166,27 +170,27 @@ public class PagamentoReportDto {
         this.tipoConta = tipoConta;
     }
 
-    public Long getConta() {
+    public String getConta() {
         return conta;
     }
 
-    public void setConta(Long conta) {
+    public void setConta(String conta) {
         this.conta = conta;
     }
 
-    public Integer getIndicadorPagamento() {
+    public String getIndicadorPagamento() {
         return indicadorPagamento;
     }
 
-    public void setIndicadorPagamento(Integer indicadorPagamento) {
+    public void setIndicadorPagamento(String indicadorPagamento) {
         this.indicadorPagamento = indicadorPagamento;
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -214,11 +218,11 @@ public class PagamentoReportDto {
         this.nascimento = nascimento;
     }
 
-    public Long getPisPasep() {
+    public String getPisPasep() {
         return pisPasep;
     }
 
-    public void setPisPasep(Long pisPasep) {
+    public void setPisPasep(String pisPasep) {
         this.pisPasep = pisPasep;
     }
 

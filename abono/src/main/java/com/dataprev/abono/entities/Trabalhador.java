@@ -11,7 +11,7 @@ public class Trabalhador {
 
     @Id
     @Column(name="trabalhador_id")
-    private Long cpf;
+    private String cpf;
     @Column(name="nome")
     private String nome;
     @Column(name="nome_mae")
@@ -19,9 +19,9 @@ public class Trabalhador {
     @Column(name="data_nascimento")
     private Date nascimento;
     @Column(name="pis_pasep")
-    private Long pisPasep;
+    private String pisPasep;
 
-    public Trabalhador(Long cpf, String nome, String nomeMae, Date nascimento, Long pisPasep) {
+    public Trabalhador(String cpf, String nome, String nomeMae, Date nascimento, String pisPasep) {
         this.cpf = cpf;
         this.nome = nome;
         this.nomeMae = nomeMae;
@@ -32,11 +32,11 @@ public class Trabalhador {
     public Trabalhador() {
     }
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -64,11 +64,11 @@ public class Trabalhador {
         this.nascimento = nascimento;
     }
 
-    public Long getPisPasep() {
+    public String getPisPasep() {
         return pisPasep;
     }
 
-    public void setPisPasep(Long pisPasep) {
+    public void setPisPasep(String pisPasep) {
         this.pisPasep = pisPasep;
     }
 }

@@ -12,7 +12,7 @@ public class Pagamento {
     @Column(name="pagamento_id")
     private Integer id;
     @Column(name="codigo_pagamento")
-    private Long codigoPagamento;
+    private String codigoPagamento;
     @Column(name="exercicio_financeiro")
     private String exercicioFinanceiro = "01012022";
     @Column(name="ano_base")
@@ -22,7 +22,7 @@ public class Pagamento {
     @Column(name="valor_pagamento")
     private BigDecimal valorPagamento;
     @Column(name="meses_trabalhados")
-    private Integer mesesTrabalhados;
+    private String mesesTrabalhados;
     @Column(name="data_inicial_pagamento")
     private String dataInicialPagamento = "05022024";
     @Column(name="data_final_pagamento")
@@ -36,7 +36,7 @@ public class Pagamento {
     @JoinColumn(name="fk_trabalhador_id")
     private Trabalhador trabalhador;
 
-    public Pagamento(Integer id, Long codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, Integer mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
+    public Pagamento(Integer id, String codigoPagamento, String exercicioFinanceiro, String anoBase, String numeroParcela, BigDecimal valorPagamento, String mesesTrabalhados, String dataInicialPagamento, String dataFinalPagamento, String numeroSentenca, Banco banco, Trabalhador trabalhador) {
         this.id = id;
         this.codigoPagamento = codigoPagamento;
         this.exercicioFinanceiro = exercicioFinanceiro;
@@ -51,8 +51,6 @@ public class Pagamento {
         this.trabalhador = trabalhador;
     }
 
-
-
     public Pagamento() {
     }
 
@@ -64,11 +62,11 @@ public class Pagamento {
         this.id = id;
     }
 
-    public Long getCodigoPagamento() {
+    public String getCodigoPagamento() {
         return codigoPagamento;
     }
 
-    public void setCodigoPagamento(Long codigoPagamento) {
+    public void setCodigoPagamento(String codigoPagamento) {
         this.codigoPagamento = codigoPagamento;
     }
 
@@ -104,11 +102,11 @@ public class Pagamento {
         this.valorPagamento = valorPagamento;
     }
 
-    public Integer getMesesTrabalhados() {
+    public String getMesesTrabalhados() {
         return mesesTrabalhados;
     }
 
-    public void setMesesTrabalhados(Integer mesesTrabalhados) {
+    public void setMesesTrabalhados(String mesesTrabalhados) {
         this.mesesTrabalhados = mesesTrabalhados;
     }
 
