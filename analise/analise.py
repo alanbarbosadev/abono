@@ -1,0 +1,2 @@
+msg = "ola"
+print(msg)

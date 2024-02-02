@@ -1,4 +1,12 @@
-const test =
-  "210000000000101012022202201474.60805022024311220240000000-00.0000.000.00000000421794PP40833209154140530000000001                                        Carlos Fabrício                                        Roberta Barbosa3112196932545739800000000";
+let linha =
+  "21,000000000001,01012022,2022, 3254573980,                                                       Carlos Fabrício,31121969,00000000001,                                                       Roberta Barbosa,01,000474.60,08,05022024,31122024,00000000000000000000,0000,42179,4,PP,408332091541405,3,0000000";
 
-console.log(test.length);
+let meuArray = linha.split(",");
+
+total = 0;
+for (let elemento of meuArray) {
+  console.log(elemento, ":", elemento.length);
+  total = total + elemento.length;
+}
+
+console.log("total :", total);

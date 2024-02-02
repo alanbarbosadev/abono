@@ -2,7 +2,6 @@ package com.dataprev.abono.processors;
 
 import com.dataprev.abono.dtos.PagamentoReportDto;
 import com.dataprev.abono.entities.Pagamento;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.math.BigDecimal;
@@ -32,9 +31,9 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
          pagamentoReportDto.setBanco(formatBanco(pagamento.getBanco().getBanco()));
          pagamentoReportDto.setAgencia(formatAgencia(pagamento.getBanco().getAgencia()));
          pagamentoReportDto.setDigitoVerificador(formatDigitoVerificador(pagamento.getBanco().getDigitoVerificador()));
-         pagamentoReportDto.setTipoConta(pagamento.getBanco().getTipoConta());
+         pagamentoReportDto.setTipoConta(formatTipoConta(pagamento.getBanco().getTipoConta()));
          pagamentoReportDto.setConta(formatConta(pagamento.getBanco().getConta()));
-         pagamentoReportDto.setIndicadorPagamento(formatTipoConta(pagamento.getBanco().getIndicadorPagamento()));
+         pagamentoReportDto.setIndicadorPagamento(formatIndicador(pagamento.getBanco().getIndicadorPagamento()));
          pagamentoReportDto.setCpf(formatCpf(pagamento.getTrabalhador().getCpf()));
          pagamentoReportDto.setNome(formatNome(pagamento.getTrabalhador().getNome()));
          pagamentoReportDto.setNomeMae(formatNome(pagamento.getTrabalhador().getNomeMae()));
@@ -50,11 +49,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 12;
 
-        if(codigoPagamento.length() < charSize){
+        if(codigoPagamento.length() < charSize) {
 
-            var zeroCount = charSize - codigoPagamento.length();
+            int zeroCount = charSize - codigoPagamento.length();
 
-            return StringUtils.leftPad(codigoPagamento,zeroCount,"0");
+            var str = new StringBuilder(codigoPagamento);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return codigoPagamento;
@@ -64,13 +69,19 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 9;
 
-        var valorPagamentoStr = valorPagamento.toString();
+        String valorPagamentoStr = valorPagamento.toString();
 
-        if(valorPagamentoStr.length() < charSize){
+        if(valorPagamentoStr.length() < charSize) {
 
-            var zeroCount = charSize - valorPagamentoStr.length();
+            int zeroCount = charSize - valorPagamentoStr.length();
 
-            return StringUtils.leftPad(valorPagamentoStr,zeroCount,"0");
+            var str = new StringBuilder(valorPagamentoStr);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return valorPagamentoStr;
@@ -80,11 +91,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 2;
 
-        if(mesesTrabalhados.length() < charSize){
+        if(mesesTrabalhados.length() < charSize) {
 
-            var zeroCount = charSize - mesesTrabalhados.length();
+            int zeroCount = charSize - mesesTrabalhados.length();
 
-            return StringUtils.leftPad(mesesTrabalhados,zeroCount,"0");
+            var str = new StringBuilder(mesesTrabalhados);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return mesesTrabalhados;
@@ -94,11 +111,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 4;
 
-        if(banco.length() < charSize){
+        if(banco.length() < charSize) {
 
-            var zeroCount = charSize - banco.length();
+            int zeroCount = charSize - banco.length();
 
-            return StringUtils.leftPad(banco,zeroCount,"0");
+            var str = new StringBuilder(banco);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return banco;
@@ -108,11 +131,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 5;
 
-        if(agencia.length() < charSize){
+        if(agencia.length() < charSize) {
 
-            var zeroCount = charSize - agencia.length();
+            int zeroCount = charSize - agencia.length();
 
-            return StringUtils.leftPad(agencia,zeroCount,"0");
+            var str = new StringBuilder(agencia);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return agencia;
@@ -120,14 +149,20 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
     private String formatDigitoVerificador(String digitoVerificador) {
 
-//        int charSize = 1;
-//
-//        if(digitoVerificador.length() < charSize){
-//
-//            int zeroCount = charSize - digitoVerificador.length();
-//
-//            return StringUtils.leftPad(digitoVerificador,zeroCount,"0");
-//        }
+        int charSize = 1;
+
+        if(digitoVerificador.length() < charSize) {
+
+            int zeroCount = charSize - digitoVerificador.length();
+
+            var str = new StringBuilder(digitoVerificador);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
+        }
 
         return digitoVerificador;
     }
@@ -135,11 +170,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 15;
 
-        if(conta.length() < charSize){
+        if(conta.length() < charSize) {
 
-            var zeroCount = charSize - conta.length();
+            int zeroCount = charSize - conta.length();
 
-            return StringUtils.leftPad(conta,zeroCount,"0");
+            var str = new StringBuilder(conta);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return conta;
@@ -149,25 +190,57 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 2;
 
-        if(tipoConta.length() < charSize){
+        if(tipoConta.length() < charSize) {
 
-            var zeroCount = charSize - tipoConta.length();
+            int zeroCount = charSize - tipoConta.length();
 
-            return StringUtils.leftPad(tipoConta,zeroCount,"0");
+            var str = new StringBuilder(tipoConta);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return tipoConta;
+    }
+
+    private String formatIndicador(String indicador) {
+
+        int charSize = 1;
+
+        if(indicador.length() < charSize) {
+
+            int zeroCount = charSize - indicador.length();
+
+            var str = new StringBuilder(indicador);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
+        }
+
+        return indicador;
     }
 
     private String formatCpf(String cpf) {
 
         int charSize = 11;
 
-        if(cpf.length() < charSize){
+        if(cpf.length() < charSize) {
 
-            var zeroCount = charSize - cpf.length();
+            int zeroCount = charSize - cpf.length();
 
-            return StringUtils.leftPad(cpf,zeroCount,"0");
+            var str = new StringBuilder(cpf);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, '0');
+            }
+
+            return str.toString();
         }
 
         return cpf;
@@ -177,11 +250,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 70;
 
-        if(nome.length() < charSize){
+        if(nome.length() < charSize) {
 
-            var spaceCount = charSize - nome.length();
+            int zeroCount = charSize - nome.length();
 
-            return StringUtils.leftPad(nome,spaceCount," ");
+            var str = new StringBuilder(nome);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, ' ');
+            }
+
+            return str.toString();
         }
 
         return nome;
@@ -191,11 +270,17 @@ public class PagamentoProcessor implements ItemProcessor<Pagamento, PagamentoRep
 
         int charSize = 11;
 
-        if(pispasep.length() < charSize){
+        if(pispasep.length() < charSize) {
 
-            var zeroCount = charSize - pispasep.length();
+            int zeroCount = charSize - pispasep.length();
 
-            return StringUtils.leftPad(pispasep,zeroCount,"0");
+            var str = new StringBuilder(pispasep);
+
+            for (int i = 0; i < zeroCount; i++) {
+                str.insert(0, ' ');
+            }
+
+            return str.toString();
         }
 
         return pispasep;

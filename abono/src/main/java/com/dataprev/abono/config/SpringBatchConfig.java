@@ -6,7 +6,6 @@ import com.dataprev.abono.mappers.PagamentoDatabaseRowMapper;
 import com.dataprev.abono.processors.PagamentoProcessor;
 import com.dataprev.abono.repositories.PagamentoRepository;
 import com.dataprev.abono.writers.ReportWriter;
-import jakarta.annotation.Resource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -16,11 +15,9 @@ import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
-import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.json.JacksonJsonObjectReader;
-import org.springframework.batch.item.json.JsonFileItemWriter;
 import org.springframework.batch.item.json.JsonItemReader;
 import org.springframework.batch.item.json.builder.JsonItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +25,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.WritableResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringBatchConfig {
-
     private PagamentoRepository pagamentoRepository;
-
     private JobRepository jobRepository;
     private PlatformTransactionManager platformTransactionManager;
     private DataSource dataSource;
-
-    //private Resource outputResource = (Resource) new FileSystemResource("src/main/resources/users_output.csv");
 
     @Autowired
     public SpringBatchConfig(PagamentoRepository pagamentoRepository, JobRepository jobRepository, PlatformTransactionManager platformTransactionManager, DataSource dataSource) {
@@ -86,11 +78,11 @@ public class SpringBatchConfig {
 
     @Bean
     public ItemWriter<PagamentoReportDto> pagamentoWriter() {
-        ReportWriter<PagamentoReportDto> writer = new ReportWriter<>();
-        writer.setResource(new FileSystemResource("src/main/resources/pagamento.txt"));
+        ReportWriter<PagamentoReportDto> writer = new ReportWriter<PagamentoReportDto>();
+        writer.setResource(new FileSystemResource("src/main/resources/pagamento.csv"));
         writer.setLineAggregator(new DelimitedLineAggregator<PagamentoReportDto>() {
             {
-                setDelimiter(" ");
+                setDelimiter(",");
                 setFieldExtractor(new BeanWrapperFieldExtractor<PagamentoReportDto>() {
                     {
 //                        setNames(new String[]{"id", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
@@ -99,20 +91,16 @@ public class SpringBatchConfig {
 //                                "trabalhador.cpf", "trabalhador.nome", "trabalhador.nomeMae",
 //                                "trabalhador.nascimento", "trabalhador.pisPasep"});
 
-                        setNames(new String[]{"identificacaoRegistro", "codigoPagamento", "exercicioFinanceiro", "anoBase", "numeroParcela", "valorPagamento",
-                                "mesesTrabalhados", "dataInicialPagamento", "dataFinalPagamento", "numeroSentenca", "banco",
-                                "agencia", "digitoVerificador", "tipoConta", "conta", "indicadorPagamento",
-                                "cpf", "nome", "nomeMae", "nascimento", "pisPasep","zeros"});
+                        setNames(new String[]{"identificacaoRegistro", "codigoPagamento", "exercicioFinanceiro", "anoBase", "pisPasep", "nome",  "nascimento",
+                                "cpf", "nomeMae", "numeroParcela", "valorPagamento","mesesTrabalhados","dataInicialPagamento", "dataFinalPagamento", "numeroSentenca","banco",
+                                "agencia", "digitoVerificador", "tipoConta", "conta", "indicadorPagamento", "zeros"});
                     }
                 });
             }
         });
-<<<<<<< HEAD
         //writer.setHeaderCallback();
-=======
 
-        writer.setFooterCallback(( writer1 -> writer1.write("Contagem: " + writer.getCount() + "   Valor total: " + writer.getTotalValue())));
->>>>>>> 3c0db0eec98fb39131fda357c697defb3bdb163c
+        //writer.setFooterCallback(( x -> x.write("Contagem: " + writer.getCount() + "   Valor total: " + writer.getTotalValue())));
         writer.setShouldDeleteIfExists(true);
         return writer;
     }

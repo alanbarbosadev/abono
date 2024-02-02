@@ -4,14 +4,11 @@ import java.math.BigDecimal;
 
 public class PagamentoReportDto {
     private String identificacaoRegistro;
-    //retornando 11
     private String codigoPagamento;
     private String exercicioFinanceiro = "01012022";
     private String anoBase = "2022";
     private String numeroParcela = "01";
-    //verificar
     private String valorPagamento;
-    //verificar
     private String mesesTrabalhados;
     private String dataInicialPagamento = "05022024";
     private String dataFinalPagamento = "31122024";
